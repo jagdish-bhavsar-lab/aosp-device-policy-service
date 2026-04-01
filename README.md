@@ -1,37 +1,23 @@
-# 🚀 AOSP Device Policy Service (Simulation)
+# AOSP Device Policy Service (Simulation)
 
-A modular, AOSP-inspired Android framework project that demonstrates how custom system services are designed, exposed, and consumed by applications.
+A modular Android framework project demonstrating how system services can be designed, exposed, and consumed using AOSP-inspired architecture.
 
 <br>
 
 ## 🎯 Overview
 
-This project simulates the internal architecture of Android’s system services (like `DevicePolicyManager`) using a clean, layered design.
-
-It showcases how an Android application interacts with a framework API, which internally communicates with a system service responsible for enforcing device-level policies.
+This project models a policy-driven system service similar to Android’s DevicePolicyManager, using a layered architecture to separate framework APIs, service logic, and policy enforcement.
 
 <br>
 
-## 🧠 Key Concept
-
-Instead of directly controlling hardware, this project focuses on **how Android is structured internally**:
-
-* Framework API (Manager)
-* System Service
-* Policy Engine (core logic)
-
-> ⚠️ Note: Binder IPC (AIDL) is simulated using a Java interface for simplicity.
-
-<br>
-
-## 🧱 Architecture
+## 🏗️ Architecture
 
 ```
 App (demo-app)
    ↓
 DevicePolicyManagerCustom (Framework API)
    ↓
-IDevicePolicyCustom (Interface - AIDL Simulation)
+IDevicePolicyCustom (Interface)
    ↓
 DevicePolicyCustomService (System Service)
    ↓
@@ -40,129 +26,71 @@ PolicyEngine (Core Logic)
 
 <br>
 
-## 🔧 Modules
+## 🔧 Key Components
 
-### 📱 demo-app
+* **DevicePolicyManagerCustom**
+  Framework-facing API for applications (similar to `getSystemService()` pattern)
 
-Android application used to test and demonstrate the framework.
+* **DevicePolicyCustomService**
+  Core service layer handling requests and coordinating policy execution
 
-### 🧩 core
+* **PolicyEngine**
+  Centralized logic for policy management and enforcement
 
-Framework module containing all system-level components.
+* **IDevicePolicyCustom**
+  Interface layer simulating AIDL-based communication
 
-<br>
-
-## 🔥 Core Components
-
-### 1. PolicyEngine
-
-* Central logic layer
-* Stores and manages policy states
-* Easily extensible for new policies
-
-### 2. DevicePolicyCustomService
-
-* Acts as a system service
-* Implements policy interface
-* Delegates execution to PolicyEngine
-
-### 3. DevicePolicyManagerCustom
-
-* Framework API exposed to apps
-* Abstracts internal implementation
-* Acts like `getSystemService()`
-
-### 4. SystemServerSimulation
-
-* Simulates Android boot process
-* Initializes and provides system services
-
-### 5. IDevicePolicyCustom
-
-* Interface representing AIDL contract
-* Enables loose coupling between layers
+* **SystemServerSimulation**
+  Simulates Android service initialization lifecycle
 
 <br>
 
-## ⚙️ Features (Current)
+## ⚙️ Features
 
-* ✅ WiFi Policy Control (simulated)
-* ✅ Bluetooth Policy Control (simulated)
-* ✅ Scalable policy-based design
+* WiFi policy control (simulated)
+* Bluetooth policy control (simulated)
+* Extensible policy-based architecture
 
 <br>
 
-## 🚀 How It Works
-
-1. App starts and simulates system boot
-2. SystemServer initializes the service
-3. App gets framework manager
-4. App calls:
-
-```kotlin
-manager.setPolicy("WIFI", false)
-```
-
-5. Flow:
+## 🔄 Execution Flow
 
 ```
-Manager → Service → PolicyEngine
+App → Manager → Service → PolicyEngine
 ```
 
-6. Policy state updated and returned
+Policy updates are processed through layered abstraction, ensuring clear separation between API, service, and logic layers.
 
 <br>
 
-## 📊 Sample Output (Logcat)
+## 🎯 Key Concepts Demonstrated
 
-```
-WiFi state = false
-Bluetooth state = true
-```
-
-<br>
-
-## 🔮 Future Enhancements
-
-* App Whitelisting
-* Kiosk Mode Simulation
-* USB Restriction
-* Policy Profiles (Work / Kids Mode)
-* Remote Policy Control
+* System service design patterns
+* Layered architecture (Framework → Service → Logic)
+* Interface-driven communication (AIDL-inspired)
+* Modular and extensible system design
 
 <br>
 
-## 🧩 Why This Project?
+## ⚠️ Note
 
-Most Android projects focus on UI and APIs.
-
-This project focuses on:
-
-* System-level design
-* Framework architecture
-* AOSP concepts
+Binder (AIDL) communication is simulated using interfaces to focus on architectural design rather than IPC implementation.
 
 <br>
 
-## 💡 Key Learnings
+## 🚀 Future Enhancements
 
-* Layered Android architecture
-* Separation of concerns
-* Interface-driven design
-* System service lifecycle
-
-<br>
-
-## ⚡ One-Line Summary
-
-A mini AOSP-style system service framework that demonstrates how Android internally manages device policies through a structured Manager → Service → Engine flow.
+* Binder/AIDL integration
+* Permission and security enforcement
+* Multi-client handling
+* Advanced policy controls (kiosk mode, app restrictions)
 
 <br>
 
 ## 👨‍💻 Author
 
-**Jagdish Bhavsar**<br>
-Lead Android & AOSP Engineer | System Design | IoT | 13+ Years Experience
+Jagdish Bhavsar
+Technical Lead – Android | AOSP | IoT | System-Level Design
 
 <br>
 
